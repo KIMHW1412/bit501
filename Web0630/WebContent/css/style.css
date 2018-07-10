@@ -1,0 +1,48 @@
+/* 메뉴 구성 시작 1*/
+nav {
+	margin-bottom: 5px;
+}
+
+nav span a {
+	font-weight: bold;
+	padding: 0px 5px; /* 위아래 좌우*/
+	border: 1px solid purple;
+	background: purple;
+	color: white;
+	text-decoration: none;
+}
+
+nav span a:hover { /* 마우스가 A태그위에 있을때 */
+	background: #FF00FF;
+	color: white;
+}
+/* 메뉴 구성 종료 1*/
+
+/* 메뉴 구성 시작 2, 태그의 id 가 topMenu인 스타일*/
+#topMenu {
+	height: 30px;
+	width: 100%;
+	background-color: #555555;
+}
+
+#topMenu ul li {
+	list-style: none; /* 블렛 기호 제거  list-style: none;   */
+	color: white; /* 글자 #555555 색갈*/
+	background-color: #555555;
+	float: left; /* float: left;  li 태그의 출력 방향을 좌측으로 변경 */
+	vertical-align: middle; /* 세로 기준 중간 정렬 */
+	text-align: center; /* 가로 기준 정렬 */
+}
+
+#topMenu .menuLink { /* A 태그 속성 적용 */
+	text-decoration: none; /* 밑줄 제거 */
+	color: white;
+	display: block; /* A 관련 영역 전부 링크 설정 */
+	width: 150px;
+	font-weight: bold;
+}
+
+#topMenu .menuLink:hover { /* A 태그에 마우스 over 속성 적용 */
+	color: #00FF00;
+	background-color: #4d4d4d;
+}
