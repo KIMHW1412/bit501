@@ -27,65 +27,81 @@ public class DBSQL {
 		System.out.println("DBSQL.java생성자 DB연결성공");
 	} // 기본 생성자 end
 
-	public void dbInsert(int a, String b, String c, int d) {
+	public void dbInsert(DBbean bean) { // guestSave.jsp
 		try {
 
 			msg = "insert into guest values(?,?,?,sysdate,?)";
 			PST = CN.prepareStatement(msg);
 
-			PST.setInt(1, a);
-			PST.setString(2, b);
-			PST.setString(3, c);
-			PST.setInt(4, d);
+			PST.setInt(1, bean.getSabun());
+			PST.setString(2, bean.getName());
+			PST.setString(3, bean.getTitle());
+			PST.setInt(4, bean.getPay());
 
-			PST.executeUpdate(); // executeUpdate(msg)에러발생
-			System.out.println("PreparedStatement 저장성공");
+			int cnt = PST.executeUpdate(); // executeUpdate(msg)에러발생
+			if (cnt > 0) {
+				CN.commit();
+				PST.close();
+				CN.close();
+				System.out.println("PreparedStatement 저장성공");
+			}
 
 		} catch (Exception e) {
 			System.out.println("저장실패에러 " + e);
 		}
 	}// end dbInsert(a, b, c, d)
 
-	public void dbInsert(DBbean bean) {
-		try {
-
-			msg = "insert into guest values(?,?,?,sysdate,?)";
-			PST = CN.prepareStatement(msg);
-			// PST.setInt(1, a);
-			// PST.setString(2, b);
-			// PST.setString(3, c);
-			// PST.setInt(4, d);
-			PST.executeUpdate(); // executeUpdate(msg)에러발생
-			System.out.println("PreparedStatement 저장성공");
-
-		} catch (Exception e) {
-			System.out.println("저장실패에러 " + e);
-		}
-	} // end dbInsert(DBbean)
-
-	public ArrayList<DBbean> dbSelect() {
+	public ArrayList<DBbean> dbSelect() { // guestList.jsp문서 땡겨서 사용
 		ArrayList<DBbean> my = new ArrayList<DBbean>();
 
 		try {
-			msg = "select * from guest order by sabun";
+			String x = "select * from (";
+			String y = "select rownum rn, g.* from guest g";
+			String z = ") where rn >=1 and rn <=10 order by rn";
+			msg = x + y + z;
 			ST = CN.createStatement();
 			RS = ST.executeQuery(msg);
 			while (RS.next() == true) {
-				DBbean bb = new DBbean();
-				Gsabun = RS.getInt("sabun");
-				bb.setSabun(RS.getInt("sabun"));
-				bb.setName(RS.getString("name"));
-				bb.setTitle(RS.getString("title"));
-				bb.setNalja(RS.getDate("nalja"));
-				bb.setPay(RS.getInt("pay"));
+				DBbean bean = new DBbean();
+				bean.setSabun(RS.getInt("sabun"));
+				bean.setName(RS.getString("name"));
+				bean.setTitle(RS.getString("title"));
+				bean.setNalja(RS.getDate("nalja"));
+				bean.setPay(RS.getInt("pay"));
+				bean.setRn(RS.getInt("rn"));
 
-				// msg3 = "select where " + Gsabun;
-				// ST3 = CN.createStatement();
-				// RS3 = ST3.executeQuery(msg3);
-				// tot3 = RS3.getInt("rcnt");
+				my.add(bean);// 꼭꼭꼭 기술하시오.
+			} // while end
+		} catch (Exception e) {
+			System.out.println(e);
+		}
 
-				my.add(bb);
-			}
+		return my;
+	} // end
+
+	public ArrayList<DBbean> dbSelect(int start, int end) { // guestList.jsp문서 땡겨서 사용
+		ArrayList<DBbean> my = new ArrayList<DBbean>();
+
+		try {
+			// msg = "select * from guest order by sabun";
+			String x = "select * from (";
+			String y = "select rownum rn, g.* from guest g";
+			String z = ") where rn >=" + start + " and rn <=" + end;
+			//String z = ") where rn between" + start + " and " + end;
+			msg = x + y + z;
+			ST = CN.createStatement();
+			RS = ST.executeQuery(msg);
+			while (RS.next() == true) {
+				DBbean bean = new DBbean();
+				bean.setSabun(RS.getInt("sabun"));
+				bean.setName(RS.getString("name"));
+				bean.setTitle(RS.getString("title"));
+				bean.setNalja(RS.getDate("nalja"));
+				bean.setPay(RS.getInt("pay"));
+				bean.setRn(RS.getInt("rn"));
+
+				my.add(bean);// 꼭꼭꼭 기술하시오.
+			} // while end
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -108,7 +124,7 @@ public class DBSQL {
 		return count;
 	} // end
 
-	public DBbean dbDetail(int data) {
+	public DBbean dbDetail(String data) {
 		DBbean bean = new DBbean();
 		try {
 			msg = "select * from guest where sabun = " + data;
@@ -126,5 +142,42 @@ public class DBSQL {
 			// TODO: handle exception
 		}
 		return bean;
+	}
+
+	public void dbDelete(String data) {
+		try {
+			msg = "delete from guest where sabun = " + data;
+			ST = CN.createStatement();
+			int cnt = ST.executeUpdate(msg);
+			if (cnt > 0) {
+				CN.commit();
+				ST.close();
+				CN.close();
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+
+	public void dbUpdate(DBbean bean) {
+		try {
+			msg = "update guest set name=?, title=?, nalja=sysdate, pay=? where sabun=?";
+			PST = CN.prepareStatement(msg);
+
+			PST.setString(1, bean.getName());
+			PST.setString(2, bean.getTitle());
+			PST.setInt(3, bean.getPay());
+			PST.setInt(4, bean.getSabun());
+
+			int cnt = PST.executeUpdate();
+			if (cnt > 0) {
+				CN.commit();
+				PST.close();
+				CN.close();
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e);
+		}
 	}
 } // DBSQL class END

@@ -10,21 +10,27 @@ input, b {
 }
 
 a {
+	font-size: 16pt;
+	color: blue;
 	text-decoration: none;
-	font-size: 20pt;
-	font-weight: bold;
 }
 
 a:hover {
-	color: red;
-	font-size: 20pt;
+	font-size: 16pt;
+	color: green;
+	text-decoration: none;
+}
+
+div.tit {
+	font-size: 26pt;
 	font-weight: bold;
+	color: red;
 }
 
 #LOG-IN {
 	font-size: 26pt;
 	font-weight: bold;
-	background: "#FFFF00";
+	background-color: "yellow";
 	height: 120;
 }
 </style>
@@ -54,7 +60,7 @@ a:hover {
 	</table>
 
 	<P>
-		<a href="index.jsp">[시작화면]</a> <a href="guest.jsp">[등록화면]</a> <a
+		<a href="main.jsp">[시작화면]</a> <a href="guestJoin.jsp">[등록화면]</a> <a
 			href="guestList.jsp">[전체목록]</a>
 </body>
 </html>

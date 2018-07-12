@@ -18,9 +18,9 @@ a {
 }
 
 a:hover {
-	font-size: 20pt;
+	font-size: 16pt;
 	color: green;
-	text-decoration: underline;
+	text-decoration: none;
 }
 
 div.tit {
@@ -35,7 +35,7 @@ div.tit {
 	<jsp:useBean id="ds" class="net.hb.common.DBSQL"></jsp:useBean>
 	<jsp:useBean id="bean" class="net.hb.common.DBbean"></jsp:useBean>
 	<%
-		int data = Integer.parseInt(request.getParameter("idx"));
+		String data = request.getParameter("idx");
 		bean = ds.dbDetail(data);
 	%>
 
@@ -47,13 +47,11 @@ div.tit {
 				</div>
 			</td>
 		</tr>
-
 		<tr>
 			<td rowspan="5" align="center"><img src='images/bbb.gif'></td>
 			<td>사번 : <%=bean.getSabun()%>
 			</td>
 		</tr>
-
 		<tr>
 			<td>이름 : <%=bean.getName()%>
 			</td>
@@ -70,13 +68,18 @@ div.tit {
 			<td>급여 : <%=bean.getPay()%>
 			</td>
 		</tr>
-
-
 		<tr>
-			<td colspan='2' align="center"><a href="index.jsp">[index]</a> <a
-				href="guestDeleteSave.jsp?idx=<%=bean.getSabun()%>">[삭제]</a> <a
-				href="guestJoin.jsp">[guestJoin]</a> <a
-				href="guestEdit.jsp?idx=<%=bean.getSabun()%>">[수정]</a> <a
+			<td colspan='2' align="center"><a href="index.jsp">[index]</a> <script
+					type="text/javascript">
+			function detailDel() {
+				if(confirm("삭제하시겠습니까?")) {
+					location.href = "guestDeleteSave.jsp?idx=<%=bean.getSabun()%>";
+				} else {
+					return false;
+				}
+			}
+			</script> <a onclick="detailDel()">[삭제]</a> <a href="guestJoin.jsp">[guestJoin]</a>
+				<a href="guestEdit.jsp?idx=<%=bean.getSabun()%>">[수정]</a> <a
 				href="guestList.jsp">[guestList]</a><br></td>
 		</tr>
 	</table>

@@ -36,7 +36,7 @@ a:hover {
 	</form>
 
 	<p>
-		<a href="index.jsp"> [index] </a> <a href="guestJoin.jsp">
+		<a href="main.jsp"> [index] </a> <a href="guestJoin.jsp">
 			[guestJoin] </a> <a href="guestList.jsp"> [guestList] </a>
 </body>
 </html>
