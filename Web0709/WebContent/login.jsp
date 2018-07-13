@@ -24,7 +24,7 @@ a:hover {
 #LOG-IN {
 	font-size: 26pt;
 	font-weight: bold;
-	background: "#FFFF00";
+	background-color: #FFD700;
 	height: 120;
 }
 </style>

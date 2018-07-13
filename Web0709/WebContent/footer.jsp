@@ -26,8 +26,7 @@ a:hover {
 
 </head>
 <body>
-	<a href="index.jsp">[index]</a>
-	<a href="guestJoin.jsp">[guestJoin]</a>
-	<a href="guestList.jsp">[guestList]</a>
+	<a href="main.jsp">[index]</a>
+	<a href="login.jsp">[login]</a>
 </body>
 </html>

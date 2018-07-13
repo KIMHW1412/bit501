@@ -82,11 +82,12 @@ div.tit {
 			<td>급여</td>
 		</tr>
 		<%
+			int num = mytotal - (pageNUM - 1) * 10;
 			for (int i = 0; i < AL.size(); i++) {
 				bean = (DBbean) AL.get(i); // 형변환은 해줘도 되고 안해줘도 되고
 		%>
 		<tr>
-			<td><%=bean.getRn()%></td>
+			<td><%=num--%></td>
 			<td><%=bean.getSabun()%></td>
 			<td><%=bean.getName()%></td>
 			<td><a href="guestDetail.jsp?idx=<%=bean.getSabun()%>"

@@ -86,7 +86,7 @@ public class DBSQL {
 			// msg = "select * from guest order by sabun";
 			String x = "select * from (";
 			String y = "select rownum rn, g.* from guest g";
-			String z = ") where rn >=" + start + " and rn <=" + end;
+			String z = ") where rn >=" + start + " and rn <=" + end + " order by nalja desc";
 			//String z = ") where rn between" + start + " and " + end;
 			msg = x + y + z;
 			ST = CN.createStatement();

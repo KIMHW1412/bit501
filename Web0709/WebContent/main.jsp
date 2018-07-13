@@ -5,6 +5,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>[main.jsp]</title>
+<style type="text/css">
+img {
+	width: 350px;
+	height: 150px;
+}
+</style>
 </head>
 <body>
 	<%

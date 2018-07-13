@@ -30,7 +30,7 @@ div.tit {
 #LOG-IN {
 	font-size: 26pt;
 	font-weight: bold;
-	background-color: "yellow";
+	background-color: "#FFD700";
 	height: 120;
 }
 </style>
