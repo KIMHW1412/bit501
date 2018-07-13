@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="mystyle.css">
-<title>[guestList.jsp]</title>
+<title>[guestList.jsps]</title>
 <style type="text/css">
 * {
 	font-size: 16pt;
