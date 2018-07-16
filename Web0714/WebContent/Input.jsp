@@ -95,7 +95,7 @@
 				<button type="reset" class="btn btn-default">초기화</button>
 				&nbsp;&nbsp;
 				<button type="button" class="btn btn-info"
-					onclick="location.href='list.jsp'">목 록</button>
+					onclick="location.href='list.do'">목 록</button>
 		</form>
 	</div>
 </body>

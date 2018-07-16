@@ -26,18 +26,18 @@ a:hover {
 <body>
 	<font color=blue> guestJoin.jsp </font>
 	<p>
-	<form name="myform" action="guestSave.jsp">
+	<form name="myform" action="insert.do" method="post">
 		사번: <input type="text" name="sabun" size=10 maxlength="4"> <br>
 		이름: <input type="text" name="name" value="bit"> <br> 제목:
 		<input type="text" name="title" value="snow"> <br> 급여: <input
 			type="text" name="pay" value="97"> <br> <input
-			type="submit" value="submit저장전송"> <input type="reset"
+			type="submit" value="MVC2저장전송"> <input type="reset"
 			value="입력취소">
 	</form>
 
 	<p>
 		<a href="main.jsp"> [index] </a> <a href="guestJoin.jsp">
-			[guestJoin] </a> <a href="guestList.jsp"> [guestList] </a>
+			[guestJoin] </a> <a href="list.do"> [guestList] </a>
 </body>
 </html>
 

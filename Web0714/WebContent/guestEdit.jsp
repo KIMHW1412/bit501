@@ -51,7 +51,7 @@ div.tit {
 
 	<p>
 		<a href="main.jsp"> [index] </a> <a href="guestJoin.jsp">
-			[guestJoin] </a> <a href="guestList.jsp"> [guestList] </a>
+			[guestJoin] </a> <a href="list.do"> [guestList] </a>
 </body>
 </html>
 

@@ -80,7 +80,7 @@ div.tit {
 			}
 			</script> <a onclick="detailDel()">[삭제]</a> <a href="guestJoin.jsp">[guestJoin]</a>
 				<a href="guestEdit.jsp?idx=<%=bean.getSabun()%>">[수정]</a> <a
-				href="guestList.jsp">[guestList]</a><br></td>
+				href="list.do">[guestList]</a><br></td>
 		</tr>
 	</table>
 	<p>

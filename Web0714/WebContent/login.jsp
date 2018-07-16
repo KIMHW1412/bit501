@@ -61,7 +61,7 @@ div.tit {
 
 	<P>
 		<a href="main.jsp">[시작화면]</a> <a href="guestJoin.jsp">[등록화면]</a> <a
-			href="guestList.jsp">[전체목록]</a>
+			href="list.do">[전체목록]</a>
 </body>
 </html>
 
