@@ -15,11 +15,11 @@
 </style>
 </head>
 <body>
-	<%!int Rnum, Rsabun, Rdata;
-	String Rwriter, Rcontent;%>
+	<%!int Rnum, Rsabun;
+	String Rwriter, Rcontent, Rdata;%>
 	<%
 		//<jsp:param name="Gsabun"/>
-		Rdata = Integer.parseInt(request.getParameter("Gsabun"));
+		Rdata = request.getParameter("Gsabun");
 	%>
 
 	<br>

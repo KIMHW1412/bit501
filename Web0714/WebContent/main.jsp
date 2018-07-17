@@ -10,7 +10,33 @@ img {
 	width: 350px;
 	height: 150px;
 }
+
+* {
+	font-size: 16pt;
+	font-weight: bold;
+}
+
+a {
+	font-size: 16pt;
+	color: blue;
+	text-decoration: none;
+}
+
+a:hover {
+	font-size: 16pt;
+	color: green;
+	text-decoration: none;
+}
+
+div.tit {
+	font-size: 26pt;
+	font-weight: bold;
+	color: red;
+}
 </style>
+<script type="text/javascript">
+	setTimeout("location.href='list.do'", 3000);
+</script>
 </head>
 <body>
 	<%

@@ -52,7 +52,7 @@ div.tit {
 				<td>${dto.rn}</td>
 				<td>${dto.sabun}</td>
 				<td>${dto.name}</td>
-				<td>${dto.title}</td>
+				<td><a href="detail.do?idx=${dto.sabun}">${dto.title}</a></td>
 				<td>${dto.nalja}</td>
 				<td>${dto.pay}</td>
 			</tr>
@@ -66,8 +66,8 @@ div.tit {
 	<button type="button" class="btn btn-primary"
 		onclick="location.href='login.jsp'">로그인</button>
 	<a href="main.jsp"> [index] </a>
-	<a href="./guestJoin.jsp"> [guestJoin] </a>
-	<a href="./guestList.jsp"> [guestList] </a>
+	<a href="guestJoin.jsp"> [guestJoin] </a>
+	<a href="list.do"> [guestList] </a>
 	<%
 		} else {
 	%>
@@ -76,9 +76,9 @@ div.tit {
 	</span>
 	<button type="button" class="btn btn-default"
 		onclick="location.href='logoutSave.jsp'">로그아웃</button>
-	<a href="./main.jsp"> [index] </a>
-	<a href="./guestJoin.jsp"> [guestJoin] </a>
-	<a href="./guestList.jsp"> [guestList] </a>
+	<a href="main.jsp"> [index] </a>
+	<a href="guestJoin.jsp"> [guestJoin] </a>
+	<a href="list.do"> [guestList] </a>
 
 	<%
 		}

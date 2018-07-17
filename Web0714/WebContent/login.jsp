@@ -42,8 +42,8 @@ div.tit {
 <body>
 	<font size=7 color=blue> [login.jsp] </font>
 	<p>
-	<table width="550" border="1" cellspacing="0">
-		<form action="loginSave.jsp" method="post">
+	<form action="loginSave.jsp" method="post">
+		<table width="550" border="1" cellspacing="0">
 			<tr>
 				<td width=350><b>userid: </b></td>
 				<td><input type="text" name="userid"></td>
@@ -56,8 +56,8 @@ div.tit {
 				<td width=350><b>userpw: </b></td>
 				<td><input type="password" name="pwd" value="1234"></td>
 			</tr>
-		</form>
-	</table>
+		</table>
+	</form>
 
 	<P>
 		<a href="main.jsp">[시작화면]</a> <a href="guestJoin.jsp">[등록화면]</a> <a

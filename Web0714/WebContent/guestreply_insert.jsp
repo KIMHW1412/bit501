@@ -21,7 +21,7 @@
 		PST.setString(2, ct);
 		PST.setInt(3, sb);
 		PST.executeUpdate();
-		response.sendRedirect("guestDetail.jsp?idx=" + sb);
+		response.sendRedirect("detail.do?idx=" + sb);
 	%>
 </body>
 </html>

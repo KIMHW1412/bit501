@@ -1,7 +1,6 @@
 package net.hb.mvc;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -56,5 +55,4 @@ public class InsertController extends HttpServlet {
 		dao.dbInsert(dto);
 		response.sendRedirect("list.do");
 	} // end
-
 } // class END

@@ -23,7 +23,7 @@ a:hover {
 	<p>
 		<%
 			session.invalidate(); //모든 세션정보 삭제
-			response.sendRedirect("guestList.jsp");
+			response.sendRedirect("list.do");
 		%>
 	
 	<p>

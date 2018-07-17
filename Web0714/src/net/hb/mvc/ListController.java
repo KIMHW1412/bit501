@@ -50,8 +50,8 @@ public class ListController extends HttpServlet {
 		GuestDAO dao = new GuestDAO();
 		
 		int Gtotal = dao.dbCount();
-		ArrayList<GuestDTO> LG = dao.dbSelect(); 
-		request.setAttribute("dto", LG);
+		ArrayList<GuestDTO> dto = dao.dbSelect(); 
+		request.setAttribute("dto", dto);
 		request.setAttribute("Gtotal", Gtotal);
 		
 		RequestDispatcher dis = request.getRequestDispatcher("guestList.jsp");

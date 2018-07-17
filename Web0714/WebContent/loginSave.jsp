@@ -36,15 +36,15 @@ a:hover {
 			if (total > 0) {
 				session.setAttribute("naver", usera);
 				System.out.println("session.setAttribute(naver, usera)아이디=" + usera);
-				response.sendRedirect("guestList.jsp"); //guestList.jsp	  
+				response.sendRedirect("list.do"); //guestList.jsp	  
 			} else {
 				response.sendRedirect("login.jsp"); //login.jsp이동	  
 			}
 		%>
 	
 	<p>
-		<a href="index.jsp">[index.jsp]</a> <a href="guest.jsp">[등록화면]</a> <a
-			href="guestList.jsp">[전체목록]</a>
+		<a href="main.jsp">[index.jsp]</a> <a href="guestJoin.jsp">[등록화면]</a> <a
+			href="list.do">[전체목록]</a>
 </body>
 </html>
 

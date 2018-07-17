@@ -56,7 +56,7 @@ public class GuestDAO { // Data Access Object
 		try {
 			String x = "select * from (";
 			String y = "select rownum rn, g.* from guest g";
-			String z = ") where rn >=1 and rn <=10 order by rn";
+			String z = ") where rn >=1 and rn <=10";
 			msg = x + y + z;
 			ST = CN.createStatement();
 			RS = ST.executeQuery(msg);
@@ -77,8 +77,8 @@ public class GuestDAO { // Data Access Object
 		return my;
 	} // end
 
-	public ArrayList<DBbean> dbSelect(int start, int end) { // guestList.jsp문서 땡겨서 사용
-		ArrayList<DBbean> my = new ArrayList<DBbean>();
+	public ArrayList<GuestDTO> dbSelect(int start, int end) { // guestList.jsp문서 땡겨서 사용
+		ArrayList<GuestDTO> my = new ArrayList<GuestDTO>();
 
 		try {
 			// msg = "select * from guest order by sabun";
@@ -90,15 +90,15 @@ public class GuestDAO { // Data Access Object
 			ST = CN.createStatement();
 			RS = ST.executeQuery(msg);
 			while (RS.next() == true) {
-				DBbean bean = new DBbean();
-				bean.setSabun(RS.getInt("sabun"));
-				bean.setName(RS.getString("name"));
-				bean.setTitle(RS.getString("title"));
-				bean.setNalja(RS.getDate("nalja"));
-				bean.setPay(RS.getInt("pay"));
-				bean.setRn(RS.getInt("rn"));
+				GuestDTO dto = new GuestDTO();
+				dto.setSabun(RS.getInt("sabun"));
+				dto.setName(RS.getString("name"));
+				dto.setTitle(RS.getString("title"));
+				dto.setNalja(RS.getDate("nalja"));
+				dto.setPay(RS.getInt("pay"));
+				dto.setRn(RS.getInt("rn"));
 
-				my.add(bean);// 꼭꼭꼭 기술하시오.
+				my.add(dto);// 꼭꼭꼭 기술하시오.
 			} // while end
 		} catch (Exception e) {
 			System.out.println(e);
@@ -122,24 +122,24 @@ public class GuestDAO { // Data Access Object
 		return count;
 	} // end
 
-	public DBbean dbDetail(String data) {
-		DBbean bean = new DBbean();
+	public GuestDTO dbDetail(String data) {
+		GuestDTO dto = new GuestDTO();
 		try {
 			msg = "select * from guest where sabun = " + data;
 			ST = CN.createStatement();
 			RS = ST.executeQuery(msg);
 			RS.next();
 
-			bean.setSabun(RS.getInt("sabun"));
-			bean.setName(RS.getString("name"));
-			bean.setTitle(RS.getString("title"));
-			bean.setNalja(RS.getDate("nalja"));
-			bean.setPay(RS.getInt("pay"));
+			dto.setSabun(RS.getInt("sabun"));
+			dto.setName(RS.getString("name"));
+			dto.setTitle(RS.getString("title"));
+			dto.setNalja(RS.getDate("nalja"));
+			dto.setPay(RS.getInt("pay"));
 
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		return bean;
+		return dto;
 	}
 
 	public void dbDelete(String data) {
@@ -157,15 +157,15 @@ public class GuestDAO { // Data Access Object
 		}
 	}
 
-	public void dbUpdate(DBbean bean) {
+	public void dbUpdate(GuestDTO dto) { // EditController.java
 		try {
 			msg = "update guest set name=?, title=?, nalja=sysdate, pay=? where sabun=?";
 			PST = CN.prepareStatement(msg);
 
-			PST.setString(1, bean.getName());
-			PST.setString(2, bean.getTitle());
-			PST.setInt(3, bean.getPay());
-			PST.setInt(4, bean.getSabun());
+			PST.setString(1, dto.getName());
+			PST.setString(2, dto.getTitle());
+			PST.setInt(3, dto.getPay());
+			PST.setInt(4, dto.getSabun());
 
 			int cnt = PST.executeUpdate();
 			if (cnt > 0) {

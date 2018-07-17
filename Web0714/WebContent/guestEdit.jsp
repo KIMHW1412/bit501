@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
-
+<%@ page import="net.hb.common.*" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -31,20 +33,14 @@ div.tit {
 </style>
 </head>
 <body>
-	<jsp:useBean id="ds" class="net.hb.common.DBSQL"></jsp:useBean>
-	<jsp:useBean id="bean" class="net.hb.common.DBbean"></jsp:useBean>
-	<%
-		String data = request.getParameter("idx");
-		bean = ds.dbDetail(data);
-	%>
 	<font color=blue> guestEdit.jsp </font>
 	<p>
-	<form name="myform" action="guestEditSave.jsp">
-		수정사번: <input type="text" name="sabun" value="<%=bean.getSabun()%>" readonly>
+	<form name="myform" action="edit.do" method="post">
+		수정사번: <input type="text" name="sabun" value="${dto.sabun}" readonly>
 		<br> 수정이름: <input type="text" name="name"
-			value="<%=bean.getName()%>"> <br> 수정제목: <input
-			type="text" name="title" value="<%=bean.getTitle()%>"> <br>
-		수정급여: <input type="text" name="pay" value="<%=bean.getPay()%>">
+			value="${dto.name}"> <br> 수정제목: <input
+			type="text" name="title" value="${dto.title}"> <br>
+		수정급여: <input type="text" name="pay" value="${dto.pay}">
 		<br> <input type="submit" value="submit수정처리"> <input
 			type="reset" value="입력취소">
 	</form>
