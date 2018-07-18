@@ -12,6 +12,7 @@ public class GuestDTO { // Data Transfer Object..
 	private int rcnt; // 댓글갯수
 	private int rn; // rownum
 	private int start, end; // 시작행, 끝행
+	private String sval, skey;
 
 	// 오.버->source->Generate Getters and Setters...
 	public int getSabun() {
@@ -84,6 +85,22 @@ public class GuestDTO { // Data Transfer Object..
 
 	public void setEnd(int end) {
 		this.end = end;
+	}
+
+	public String getSval() {
+		return sval;
+	}
+
+	public void setSval(String sval) {
+		this.sval = sval;
+	}
+
+	public String getSkey() {
+		return skey;
+	}
+
+	public void setSkey(String skey) {
+		this.skey = skey;
 	}
 
 } // GuestDTO class END

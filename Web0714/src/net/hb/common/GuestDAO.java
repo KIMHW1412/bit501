@@ -77,15 +77,33 @@ public class GuestDAO { // Data Access Object
 		return my;
 	} // end
 
-	public ArrayList<GuestDTO> dbSelect(int start, int end) { // guestList.jsp문서 땡겨서 사용
+	public ArrayList<GuestDTO> dbSelect(GuestDTO dto1) { // guestList.jsp문서 땡겨서 사용
 		ArrayList<GuestDTO> my = new ArrayList<GuestDTO>();
 
 		try {
-			// msg = "select * from guest order by sabun";
+			String sqry = "";
+			String skey = "", sval = "";
+			int start = 1, end = 10;
+			skey = dto1.getSkey();
+			sval = dto1.getSval();
+			start = dto1.getStart();
+			end = dto1.getEnd();
+
+			if (skey == null || skey == "" || sval == null || sval == "") {
+				sqry = " where title like '%%'";
+				skey = "";
+				sval = "";
+			} else {
+				sqry = " where " + skey + " like '%" + sval + "%'";
+			}
+			if (skey.equals("All")) {
+				sqry = " where name like '%" + sval + "%' or title like '%" + sval + "%'";
+			}
+
 			String x = "select * from (";
-			String y = "select rownum rn, g.* from guest g";
-			String z = ") where rn >=" + start + " and rn <=" + end + " order by nalja desc";
-			// String z = ") where rn between" + start + " and " + end;
+			String y = "select rownum rn, sabun, name, title, nalja, pay from guest g" + sqry;
+			String z = ") where rn between " + start + " and " + end;
+
 			msg = x + y + z;
 			ST = CN.createStatement();
 			RS = ST.executeQuery(msg);
@@ -112,6 +130,35 @@ public class GuestDAO { // Data Access Object
 		try {
 			ST = CN.createStatement();
 			msg = "select count(*) as cnt from guest";
+			RS = ST.executeQuery(msg);
+			if (RS.next() == true) {
+				count = RS.getInt("cnt");
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return count;
+	} // end
+
+	public int dbCount(GuestDTO dto) {
+		int count = 0;
+		try {
+			ST = CN.createStatement();
+			String sval = dto.getSval();
+			String skey = dto.getSkey();
+			String sqry = "";
+			if (skey == null || skey == "" || sval == null || sval == "") {
+				sqry = "where title like '%%'";
+				skey = "";
+				sval = "";
+			} else {
+				sqry = "where " + skey + " like '%" + sval + "%'";
+			}
+			if (skey.equals("All")) {
+				sqry = " where name like '%" + sval + "%' or title like '%" + sval + "%'";
+			}
+
+			msg = "select count(*) as cnt from guest " + sqry;
 			RS = ST.executeQuery(msg);
 			if (RS.next() == true) {
 				count = RS.getInt("cnt");

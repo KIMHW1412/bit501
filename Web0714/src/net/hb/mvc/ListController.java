@@ -1,7 +1,6 @@
 package net.hb.mvc;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -22,7 +21,8 @@ public class ListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -30,30 +30,76 @@ public class ListController extends HttpServlet {
 	} // end
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doUser(request, response);
 	} // end
-	
+
 	public void doUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		// 사용자정의 메소드함수 우리가 직접 기술
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
-		
-		PrintWriter out = response.getWriter();
-		
-		out.println("<img src='images/aaa.gif'>");
-		
+
 		GuestDAO dao = new GuestDAO();
+		GuestDTO dto1 = new GuestDTO();
+
+		String skey = "", sval = "";
+		skey = request.getParameter("keyfield");
+		sval = request.getParameter("keyword");
+		dto1.setSkey(skey);
+		dto1.setSval(sval);
+
+		int Gtotal = 0, Wtotal = 0;
+		int start = 1, end = 10;
+		String pnum = "0";
+		int startpage = 1, endpage = 10, pagecount, temp;
+
+		Gtotal = dao.dbCount(dto1);
+
+		pnum = request.getParameter("pageNum");
+		if (pnum == "" || pnum == null) {
+			pnum = "1";
+		}
+		int pageNUM = Integer.parseInt(pnum);
+
+		start = (pageNUM - 1) * 10 + 1;
+		end = pageNUM * 10;
+
+		if (Gtotal % 10 == 0) {
+			pagecount = Gtotal / 10;
+		} else {
+			pagecount = (Gtotal / 10) + 1;
+		}
+
+		temp = (pageNUM - 1) % 10;
+		startpage = pageNUM - temp;
+		endpage = startpage + 9;
+
+		if (endpage > pagecount) {
+			endpage = pagecount;
+		}
+
+		dto1.setStart(start);
+		dto1.setEnd(end);
 		
-		int Gtotal = dao.dbCount();
-		ArrayList<GuestDTO> dto = dao.dbSelect(); 
+		Wtotal = dao.dbCount();
+
+		ArrayList<GuestDTO> dto = dao.dbSelect(dto1);
+
 		request.setAttribute("dto", dto);
 		request.setAttribute("Gtotal", Gtotal);
-		
+		request.setAttribute("Wtotal", Wtotal);
+		request.setAttribute("startpage", startpage);
+		request.setAttribute("endpage", endpage);
+		request.setAttribute("pagecount", pagecount);
+		request.setAttribute("pageNUM", pageNUM);
+		request.setAttribute("skey", skey);
+		request.setAttribute("sval", sval);
+
 		RequestDispatcher dis = request.getRequestDispatcher("guestList.jsp");
 		dis.forward(request, response);
 	} // end

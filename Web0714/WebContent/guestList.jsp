@@ -33,12 +33,38 @@ div.tit {
 	color: red;
 }
 </style>
+<script type="text/javascript">
+	function Enter_Check() {
+		// 엔터키의 코드는 13입니다.
+		if (event.keyCode == 13) {
+			document.searchform.submit(); // 실행할 이벤트
+		}
+	}
+	function changeClear() {
+		searchform.keyword.value = "";
+		searchform.keyword.focus();
+	}
+	function loginCheck() {
+		alert("로그인을 해주세요.");
+		location.href = "login.jsp";
+	}
+</script>
 </head>
 <body>
 	<table width=700 border=1 cellspacing="0">
-		<tr align="right">
-			<td colspan="6">레코드갯수 : ${Gtotal} &nbsp;&nbsp;</td>
-		</tr>
+		<c:choose>
+			<c:when
+				test="${skey == null || skey == '' || sval == null || sval == ''}">
+				<tr align="right">
+					<td colspan="6">레코드갯수 : ${Gtotal} &nbsp;&nbsp;</td>
+				</tr>
+			</c:when>
+			<c:otherwise>
+				<tr align="right">
+					<td colspan="6">레코드검색갯수 : ${Gtotal} / ${Wtotal} &nbsp;&nbsp;</td>
+				</tr>
+			</c:otherwise>
+		</c:choose>
 		<tr bgcolor="yellow">
 			<td>No</td>
 			<td>사번</td>
@@ -57,8 +83,42 @@ div.tit {
 				<td>${dto.pay}</td>
 			</tr>
 		</c:forEach>
+		<tr align="center">
+			<td colspan="6"><c:if test="${startpage > 10}">
+					<a
+						href="list.do?pageNum=${(startpage - 1)}&keyfield=${skey}&keyword=${sval}">[이전]</a>
+				</c:if> <c:catch>
+					<c:forEach var="i" begin="${startpage}" end="${endpage}" step="1">
+						<c:choose>
+							<c:when test="${pageNUM == i}">
+								<font color="red">[${i}]</font>
+							</c:when>
+							<c:otherwise>
+								<a href="list.do?pageNum=${i}&keyfield=${skey}&keyword=${sval}">[${i}]</a>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+				</c:catch> <c:if test="${endpage < pagecount}">
+					<a
+						href="list.do?pageNum=${(startpage + 10)}&keyfield=${skey}&keyword=${sval}">[다음]</a>
+				</c:if></td>
+		</tr>
+		<tr align="right">
+			<td colspan="6">
+				<form name=myform action="list.do" method="post">
+					<select name="keyfield" onchange="changeClear()">
+						<option value="All" <c:if test="${skey eq 'All' }">selected</c:if>>
+							전체검색</option>
+						<option value="name"
+							<c:if test="${skey eq 'name' }">selected</c:if>>이름검색</option>
+						<option value="title"
+							<c:if test="${skey eq 'title' }">selected</c:if>>제목검색</option>
+					</select> <input type="text" name="keyword" size=10 value="${sval}"><input
+						type="submit" value="검 색">
+				</form>
+			</td>
+		</tr>
 	</table>
-
 	<br>
 	<%
 		if (session.getAttribute("naver") == null) {
