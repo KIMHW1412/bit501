@@ -47,7 +47,7 @@ public class ListController extends HttpServlet {
 		GuestDAO dao = new GuestDAO();
 		GuestDTO dto1 = new GuestDTO();
 
-		String skey = "", sval = "";
+		String skey = "", sval = "", returnpage = "";
 		skey = request.getParameter("keyfield");
 		sval = request.getParameter("keyword");
 		dto1.setSkey(skey);
@@ -57,6 +57,12 @@ public class ListController extends HttpServlet {
 		int start = 1, end = 10;
 		String pnum = "0";
 		int startpage = 1, endpage = 10, pagecount, temp;
+
+		if (skey == null || skey == "" || sval == null || sval == "") {
+			returnpage = "";
+		} else {
+			returnpage = "&keyfield=" + skey + "&keyword=" + sval;
+		}
 
 		Gtotal = dao.dbCount(dto1);
 
@@ -85,7 +91,7 @@ public class ListController extends HttpServlet {
 
 		dto1.setStart(start);
 		dto1.setEnd(end);
-		
+
 		Wtotal = dao.dbCount();
 
 		ArrayList<GuestDTO> dto = dao.dbSelect(dto1);
@@ -99,6 +105,7 @@ public class ListController extends HttpServlet {
 		request.setAttribute("pageNUM", pageNUM);
 		request.setAttribute("skey", skey);
 		request.setAttribute("sval", sval);
+		request.setAttribute("returnpage", returnpage);
 
 		RequestDispatcher dis = request.getRequestDispatcher("guestList.jsp");
 		dis.forward(request, response);

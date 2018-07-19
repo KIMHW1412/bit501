@@ -12,7 +12,7 @@ public class GuestDTO { // Data Transfer Object..
 	private int rcnt; // ´ñ±Û°¹¼ö
 	private int rn; // rownum
 	private int start, end; // ½ÃÀÛÇà, ³¡Çà
-	private String sval, skey;
+	private String sval, skey; // °Ë»ö
 
 	// ¿À.¹ö->source->Generate Getters and Setters...
 	public int getSabun() {

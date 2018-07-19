@@ -1,22 +1,19 @@
 package net.hb.mvc;
 
 import java.io.IOException;
-
-import javax.servlet.RequestDispatcher; // 18.7.17 화요일 추가
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.hb.common.GuestDAO;
-import net.hb.common.GuestDTO;
+import net.hb.common.ReplyDAO;
 
 /**
- * Servlet implementation class InsertController
+ * Servlet implementation class DeleteController
  */
-@WebServlet("/detail.do")
-public class DetailController extends HttpServlet {
+@WebServlet("/replyDelete.do")
+public class ReplyDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -26,7 +23,6 @@ public class DetailController extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doUser(request, response);
-		System.out.println("doGet메소드 2:06");
 	} // end
 
 	/**
@@ -36,22 +32,20 @@ public class DetailController extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doUser(request, response);
-		System.out.println("doPost메소드 2:12");
 	} // end
 
 	public void doUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		// 사용자정의 메소드함수 우리가 직접 기술
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 
-		GuestDAO dao = new GuestDAO();
-
-		String data = request.getParameter("idx");
-
-		GuestDTO dto = dao.dbDetail(data);
-
-		request.setAttribute("dto", dto);
-		RequestDispatcher dis = request.getRequestDispatcher("reply.do");
-		dis.forward(request, response);
+		ReplyDAO rdao = new ReplyDAO();
+		String num = request.getParameter("idx");
+		String sabun = request.getParameter("sabun");
+		
+		rdao.replyDelete(num);// 삭제후 포워딩 없음
+		response.sendRedirect("detail.do?idx=" + sabun);
 	} // end
+
 } // class END

@@ -37,12 +37,12 @@ div.tit {
 	function Enter_Check() {
 		// 엔터키의 코드는 13입니다.
 		if (event.keyCode == 13) {
-			document.searchform.submit(); // 실행할 이벤트
+			document.myform.submit(); // 실행할 이벤트
 		}
 	}
 	function changeClear() {
-		searchform.keyword.value = "";
-		searchform.keyword.focus();
+		myform.keyword.value = "";
+		myform.keyword.focus();
 	}
 	function loginCheck() {
 		alert("로그인을 해주세요.");
@@ -78,15 +78,17 @@ div.tit {
 				<td>${dto.rn}</td>
 				<td>${dto.sabun}</td>
 				<td>${dto.name}</td>
-				<td><a href="detail.do?idx=${dto.sabun}">${dto.title}</a></td>
+				<td><a href="detail.do?idx=${dto.sabun}">${dto.title}<c:if
+							test="${dto.rcnt > 0}">
+							<font color="red">&nbsp;[${dto.rcnt}]</font>
+						</c:if></a></td>
 				<td>${dto.nalja}</td>
 				<td>${dto.pay}</td>
 			</tr>
 		</c:forEach>
 		<tr align="center">
 			<td colspan="6"><c:if test="${startpage > 10}">
-					<a
-						href="list.do?pageNum=${(startpage - 1)}&keyfield=${skey}&keyword=${sval}">[이전]</a>
+					<a href="list.do?pageNum=${(startpage - 1)}${returnpage}">[이전]</a>
 				</c:if> <c:catch>
 					<c:forEach var="i" begin="${startpage}" end="${endpage}" step="1">
 						<c:choose>
@@ -94,28 +96,33 @@ div.tit {
 								<font color="red">[${i}]</font>
 							</c:when>
 							<c:otherwise>
-								<a href="list.do?pageNum=${i}&keyfield=${skey}&keyword=${sval}">[${i}]</a>
+								<a href="list.do?pageNum=${i}${returnpage}">[${i}]</a>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
 				</c:catch> <c:if test="${endpage < pagecount}">
-					<a
-						href="list.do?pageNum=${(startpage + 10)}&keyfield=${skey}&keyword=${sval}">[다음]</a>
+					<a href="list.do?pageNum=${(startpage + 10)}${returnpage}">[다음]</a>
 				</c:if></td>
 		</tr>
-		<tr align="right">
+		<tr>
 			<td colspan="6">
-				<form name=myform action="list.do" method="post">
-					<select name="keyfield" onchange="changeClear()">
-						<option value="All" <c:if test="${skey eq 'All' }">selected</c:if>>
-							전체검색</option>
-						<option value="name"
-							<c:if test="${skey eq 'name' }">selected</c:if>>이름검색</option>
-						<option value="title"
-							<c:if test="${skey eq 'title' }">selected</c:if>>제목검색</option>
-					</select> <input type="text" name="keyword" size=10 value="${sval}"><input
-						type="submit" value="검 색">
-				</form>
+				<div align="right">
+					<form name=myform action="list.do" method="get"
+						style="vertical-align: middle;">
+						<select name="keyfield" onchange="changeClear()"
+							style="vertical-align: middle;">
+							<option value="All"
+								<c:if test="${skey eq 'All' && !empty sval}">selected</c:if>>
+								전체검색</option>
+							<option value="name"
+								<c:if test="${skey eq 'name' && !empty sval}">selected</c:if>>이름검색</option>
+							<option value="title"
+								<c:if test="${skey eq 'title' && !empty sval}">selected</c:if>>제목검색</option>
+						</select> <input type="text" name="keyword" size=10 value="${sval}"
+							style="vertical-align: middle;"><input type="submit"
+							value="검 색" style="vertical-align: middle;">
+					</form>
+				</div>
 			</td>
 		</tr>
 	</table>

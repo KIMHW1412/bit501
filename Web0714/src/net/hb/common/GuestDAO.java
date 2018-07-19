@@ -1,26 +1,8 @@
 package net.hb.common;
 
-import java.sql.*;
-import java.util.Date;
 import java.util.ArrayList;
 
-public class GuestDAO { // Data Access Object
-	// 전역변수 = 필드 = filed, ssi.jsp문서 복붙
-	Connection CN; // DB정보기억,명령어생성
-	Statement ST; // ST명령어생성
-	PreparedStatement PST; // sql쿼리미리서해석 알맹이없는상태
-	ResultSet RS; // select결과값 기억
-	String msg;
-	String data; // 데이터받는역할 data=request.getParamater(" ")
-	int Gsabun, Gpay; // 사번,급여
-	String Gname, Gtitle; // 이름,제목
-	Date Gnalja, dt; // 날짜
-	int total = 316, Gtotal = 316;
-
-	Statement ST3;
-	String msg3;
-	ResultSet RS3;
-	int tot3;
+public class GuestDAO extends Variable { // Data Access Object
 
 	public GuestDAO() {
 		CN = DB.getConnection();
@@ -90,18 +72,18 @@ public class GuestDAO { // Data Access Object
 			end = dto1.getEnd();
 
 			if (skey == null || skey == "" || sval == null || sval == "") {
-				sqry = " where title like '%%'";
+				sqry = "where title like '%%'"; // '%%'아무 값도 안넣으면 전체검색과 같음
 				skey = "";
 				sval = "";
+			} else if (skey.equals("All")) {
+				sqry = "where name like '%" + sval + "%' or title like '%" + sval + "%'";
 			} else {
-				sqry = " where " + skey + " like '%" + sval + "%'";
-			}
-			if (skey.equals("All")) {
-				sqry = " where name like '%" + sval + "%' or title like '%" + sval + "%'";
+				sqry = "where " + skey + " like '%" + sval + "%'";
 			}
 
 			String x = "select * from (";
-			String y = "select rownum rn, sabun, name, title, nalja, pay from guest g" + sqry;
+			String y = "select rownum rn, g.* from guest g " + sqry;
+			System.out.println(y);
 			String z = ") where rn between " + start + " and " + end;
 
 			msg = x + y + z;
@@ -115,6 +97,12 @@ public class GuestDAO { // Data Access Object
 				dto.setNalja(RS.getDate("nalja"));
 				dto.setPay(RS.getInt("pay"));
 				dto.setRn(RS.getInt("rn"));
+
+				ST3 = CN.createStatement();
+				msg3 = "select count(*) as rcnt from guestreply where sabun=" + RS.getInt("sabun");
+				RS3 = ST3.executeQuery(msg3);
+				RS3.next(); // if(RS3.next()==true){rcnt}
+				dto.setRcnt(RS3.getInt("rcnt"));
 
 				my.add(dto);// 꼭꼭꼭 기술하시오.
 			} // while end
@@ -147,15 +135,15 @@ public class GuestDAO { // Data Access Object
 			String sval = dto.getSval();
 			String skey = dto.getSkey();
 			String sqry = "";
+
 			if (skey == null || skey == "" || sval == null || sval == "") {
 				sqry = "where title like '%%'";
 				skey = "";
 				sval = "";
+			} else if (skey.equals("All")) {
+				sqry = " where name like '%" + sval + "%' or title like '%" + sval + "%'";
 			} else {
 				sqry = "where " + skey + " like '%" + sval + "%'";
-			}
-			if (skey.equals("All")) {
-				sqry = " where name like '%" + sval + "%' or title like '%" + sval + "%'";
 			}
 
 			msg = "select count(*) as cnt from guest " + sqry;

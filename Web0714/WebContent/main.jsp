@@ -35,7 +35,7 @@ div.tit {
 }
 </style>
 <script type="text/javascript">
-	setTimeout("location.href='list.do'", 3000);
+	setTimeout("location.href='list.do'", 2000);
 </script>
 </head>
 <body>
