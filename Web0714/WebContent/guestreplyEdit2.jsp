@@ -18,7 +18,7 @@
 	<hr width="700">
 	<table width="700" border="0" cellspacing="0">
 		<tr bgcolor="yellow" height="35" align="center">
-			<td colspan="4">댓글 데이타 내용 표시</td>
+			<td colspan="4">댓글 데이타 수정 내용 표시</td>
 		</tr>
 		<c:forEach var="rbean" items="${rnaver}">
 			<tr onmouseover="style.background='#00FFFF'"
@@ -34,19 +34,23 @@
 		</c:forEach>
 	</table>
 	<br>
-	<form method="get" action="reply.do">
+	<form method="get" action="replyEdit.do">
 		<input type="hidden" name="insert" value="flag"> <input
 			type="hidden" name="sabun" value="${reply_sabun}">
+			<input
+			type="hidden" name="num" value="${reply_num}">
 		<table width="700" border="0" cellspacing="0">
-			<tr valign="middle">
-				<td><b><img alt="" src="images/x1.gif">작성자<img alt=""
-						src="images/x1.gif"></b> <input type="text" name="writer"
-					size="20"> <input type="submit" value="댓글저장"
-					style="height: 35pt;"></td>
-			</tr>
-			<tr>
-				<td><textarea name="content" rows="3" cols="50"></textarea></td>
-			</tr>
+			<c:forEach var="rbean" items="${rnaver2}">
+				<tr valign="middle">
+					<td><b><img alt="" src="images/x1.gif">작성자<img
+							alt="" src="images/x1.gif"></b> <input type="text"
+						name="writer" size="20" value="${rbean.writer}"> <input
+						type="submit" value="댓글저장" style="height: 35pt;"></td>
+				</tr>
+				<tr>
+					<td><textarea name="content" rows="3" cols="50">${rbean.content}</textarea></td>
+				</tr>
+			</c:forEach>
 		</table>
 	</form>
 </body>
