@@ -14,7 +14,7 @@
 	<font size="6" color="blut"> <b><%=data%>로그인 성공!!!</b>
 	</font>
 	<br>
-	<img alt="" src="images/bt_login.gif" width="250" height="50">
+	<img alt="" src="images/bt_login.gif" width="250" height="60">
 	<%
 		} else {
 			response.sendRedirect("index.jsp");
