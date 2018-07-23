@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>[helloAjax.html]</title>
+<style type="text/css">
+* {
+	font-size: 24pt;
+	font-weight: bold;
+}
+</style>
+<script type="text/javascript">
+	var xhr; // 전역변수
+
+	function two() {
+		//xhr = new XMLHttpRequest();
+		xhr = first();
+		//var b = document.getElementById("title").value;
+		//data:{title:${'#title'}.val(), pay:${'#pay'}.val()}
+		var b = document.myform.title.value;
+		if (b == null || b == "") {
+			alert("제목데이터 입력하세요.");
+			myform.title.focus();
+			return false;
+		}
+		var url = "hello.jsp?title=" + b;
+
+		xhr.onreadystatechange = display;
+
+		xhr.open("GET", url, true);
+		xhr.send(null);
+	}
+
+	function first() {
+		return new XMLHttpRequest();
+	}
+
+	function display() {
+		if (xhr.readyState == 4) {
+			if (xhr.status == 200) {
+				var str = xhr.responseText;
+				document.getElementById("msg").innerHTML = str;
+			}
+		}
+	}
+</script>
+</head>
+<body>
+	<div id="msg">
+		<form name="myform" method="get">
+			<b>아이디:</b> <input type="text" name="title" id="title"> <input
+				type="button" onclick="two()" value="Ajax전송">
+		</form>
+		<br> <img alt="" src="images/a3.png">
+	</div>
+</body>
+</html>
