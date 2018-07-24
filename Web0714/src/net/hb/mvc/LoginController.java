@@ -30,8 +30,8 @@ public class LoginController extends HttpServlet {
 	  response.setCharacterEncoding("UTF-8");
 	  response.setContentType("text/html;charset=UTF-8");
 	 
-	  String uid=request.getParameter("userid");
-	  String upwd=request.getParameter("pwd");
+	  String uid=request.getParameter("uid");
+	  String upwd=request.getParameter("upwd");
 	  
 	  PrintWriter out=response.getWriter(); //out개체
 	  HttpSession session=request.getSession(); //session개체 
