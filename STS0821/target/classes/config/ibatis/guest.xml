@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="guest">
+	<typeAlias alias="dt" type="net.hb.dto.GuestDTO" />
+
+	<insert id="add">
+		insert into guest
+		values(#sabun#,#name#,#title#,sysdate,#pay#)
+	</insert>
+
+	<select id="selectAll" resultClass="net.hb.dto.GuestDTO">
+		select * from guest order by sabun
+	</select>
+
+	<select id="detail" resultClass="net.hb.dto.GuestDTO">
+		select * from guest where sabun=#sabun#
+	</select>
+
+	<select id="countAll" resultClass="int">
+		select count(*) as cnt from guest
+	</select>
+
+</sqlMap>   
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+    
