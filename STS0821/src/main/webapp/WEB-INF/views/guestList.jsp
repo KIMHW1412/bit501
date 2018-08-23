@@ -13,13 +13,13 @@
 
 a {
 	text-decoration: none;
-	font-size: 32pt;
+	font-size: 24pt;
 	font-weight: bold;
 }
 
 a:hover {
 	text-decoration: underline;
-	font-size: 36pt;
+	font-size: 26pt;
 	font-weight: bold;
 }
 </style>
@@ -27,7 +27,11 @@ a:hover {
 </head>
 <body>
 	<table border="1" width=900 cellspacing="0">
-		<tr bgcolor="yellow">
+		<tr>
+			<td colspan="5" align="right">레코드갯수 : ${Gtotal}&nbsp;&nbsp;</td>
+		</tr>
+
+		<tr bgcolor="yellow" height="50" align="center">
 			<td>사 번</td>
 			<td>이 름</td>
 			<td>제 목</td>

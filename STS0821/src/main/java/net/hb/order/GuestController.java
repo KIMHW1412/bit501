@@ -34,18 +34,18 @@ public class GuestController {
 	}// end
 
 	@RequestMapping("/insert.do")
-	public ModelAndView guest_insert(GuestDTO dto) {
-		ModelAndView mav = new ModelAndView();
+	public String guest_insert(GuestDTO dto) {
 		dao.dbInsert(dto);
-		mav.setViewName("redirect:list.do");
-		return mav;
+		return "redirect:list.do";
 	}// end
 
 	@RequestMapping("/list.do")
 	public ModelAndView guest_select() {
 		ModelAndView mav = new ModelAndView();
+		int Gtotal = dao.dbCount();
 		List<GuestDTO> list = dao.dbSelect();
 		mav.addObject("LG", list);
+		mav.addObject("Gtotal", Gtotal);
 		mav.setViewName("guestList");
 		return mav;
 	}// end
@@ -60,10 +60,27 @@ public class GuestController {
 		return mav;
 	}// end
 
+	@RequestMapping("/preEdit.do")
+	public ModelAndView guest_preEdit(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		String data = request.getParameter("idx");
+		GuestDTO dto = dao.dbDetail(data);
+		mav.addObject("dto", dto);
+		mav.setViewName("guestEdit");
+		return mav;
+	}
+
+	@RequestMapping("/edit.do")
+	public String guest_edit(GuestDTO dto) {
+		dao.dbEdit(dto);
+		return "redirect:detail.do?idx=" + dto.getSabun();
+	}
+
 	@RequestMapping("/delete.do")
-	public String guest_delete(int data) {
-		String url = "guestList"; // WEB-INF/views/guestList.jsp
-		return url;
+	public String guest_delete(HttpServletRequest request) {
+		String data = request.getParameter("idx");
+		dao.dbDelete(data);
+		return "redirect:list.do";
 	}// end
 
 }// GuestController class END

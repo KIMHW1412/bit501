@@ -27,4 +27,18 @@ public class GuestDAO { // guest.xml문서연결
 		return dto;
 	}// end
 
+	public int dbCount() {
+		int count = (Integer) temp.queryForObject("guest.countAll");
+		return count;
+	}// end
+
+	public void dbDelete(String data) {
+		temp.delete("guest.del", data);
+		System.out.println("guest삭제성공");
+	}
+
+	public void dbEdit(GuestDTO dto) {
+		temp.update("guest.edit", dto);
+	}
+
 }// GuestDAO class END

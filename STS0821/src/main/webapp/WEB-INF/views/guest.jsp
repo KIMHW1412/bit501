@@ -33,7 +33,7 @@ a:hover {
 			name="title" value="snow"> <br> 급여:<input type="text"
 			name="pay" value="24">
 		<p>
-			<input type="submit" value="스프링STS저장"> <input type="submit"
+			<input type="submit" value="스프링STS저장"> <input type="reset"
 				value="데이타취소">
 	</form>
 
