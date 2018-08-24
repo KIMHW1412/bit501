@@ -1,6 +1,9 @@
 package net.hb.dao;
 
 import java.util.List;
+
+import javax.inject.Inject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.stereotype.Repository;
@@ -10,6 +13,7 @@ import net.hb.dto.GuestDTO;
 public class GuestDAO { // guest.xml문서연결
 
 	@Autowired
+	@Inject
 	SqlMapClientTemplate temp;
 
 	public void dbInsert(GuestDTO dto) {
@@ -17,8 +21,8 @@ public class GuestDAO { // guest.xml문서연결
 		System.out.println("guest저장성공");
 	}// end
 
-	public List<GuestDTO> dbSelect() {
-		List<GuestDTO> list = temp.queryForList("guest.selectAll");
+	public List<GuestDTO> dbSelect(GuestDTO dto) {
+		List<GuestDTO> list = temp.queryForList("guest.selectAll", dto);
 		return list;
 	}// end
 

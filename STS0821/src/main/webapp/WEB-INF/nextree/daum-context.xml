@@ -19,9 +19,7 @@
 	<resources mapping="/resources/**" location="/resources/" />
 
 	<!-- 꼭꼭꼭 필수항목 dao-context.xml문서 기술 -->
-	<beans:import
-		resource="classpath:config/ibatis/dao-context.xml" />
-
+	<!-- <beans:import resource="classpath:config/ibatis/dao-context.xml" /> -->
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -->

@@ -12,9 +12,12 @@
 		values(#sabun#,#name#,#title#,sysdate,#pay#)
 	</insert>
 
-	<select id="selectAll" resultClass="net.hb.dto.GuestDTO">
-		select * from guest order by
-		sabun
+	<select id="selectAll" parameterClass="net.hb.dto.GuestDTO"
+		resultClass="net.hb.dto.GuestDTO">
+		select * from (
+		select rownum rn, g.* from guest g
+		) where
+		rn between #start# and #end#
 	</select>
 
 	<select id="detail" resultClass="net.hb.dto.GuestDTO">
@@ -23,8 +26,7 @@
 	</select>
 
 	<select id="countAll" resultClass="int">
-		select count(*) as cnt from
-		guest
+		select count(*) from guest
 	</select>
 
 	<update id="edit">
