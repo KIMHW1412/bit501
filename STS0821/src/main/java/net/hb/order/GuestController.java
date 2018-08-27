@@ -43,63 +43,95 @@ public class GuestController {
 		return "redirect:list.do";
 	}// end
 
-	@RequestMapping(value = "/list.do", method = RequestMethod.GET)
+	@RequestMapping("/list.do")
 	public ModelAndView guest_select(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
+		// skey변수는 select값 svalu=keyword값
+		String skey = "name", sval = "%%", returnpage = "";
+		int pageNUM = 1, start = 1, end = 1, pagesize = 10, limit = 10;
+		int pagecount = 1, temp = 0, startpage = 1, endpage = 1;
+		String pnum = "0";
 
-		GuestDTO dto = new GuestDTO();
-		//////////////////////////////////////
-		int pageNUM = 1, pagecount = 1;
-		int start = 1, end = 1, temp = 1, startpage = 1, endpage = 1;
-		String pnum = "0", returnpage = "";
-		String skey = "0", sval = "0";
+		skey = request.getParameter("keyfield");
+		sval = request.getParameter("keyword");
+
+		if (skey == null || skey == "" || sval == null || sval == "") {
+			skey = "name";
+			sval = "";
+		}
+		returnpage = "&keyfield=" + skey + "&keyword=" + sval;
+		System.out.println("선택한필드=" + skey + "\t입력한 검색어=" + sval);
+
+		String AA = "", BB = "", CC = "";
+		if (skey.equals("name")) {
+			AA = sval;
+		} else if (skey.equals("title")) {
+			BB = sval;
+		} else if (skey.equals("all")) {
+			CC = sval;
+		}
+
+		// GuestDAO.java자바문서에서 db_searchcount(1,2) 작성함
+		// GuestDTO.java자바문서 rn, start, end, skey, sval 추가해야함
+		int count = dao.dbCount(); // 레코드갯수 316개
+		int searchcount = dao.dbCount(skey, sval); // 레코드갯수 316개
 
 		pnum = request.getParameter("pageNum");
-		if (pnum == null || pnum == "") {
-			pageNUM = 1;
-		} else {
-			pageNUM = Integer.parseInt(pnum);
+		if (pnum == "" || pnum == null) {
+			pnum = "1";
 		}
-		int Gtotal = dao.dbCount();
+		pageNUM = Integer.parseInt(pnum); // [1]~[3클릭]~[10]
 
-		if (Gtotal % 10 == 0) {
-			pagecount = Gtotal / 10;
+		start = (pageNUM - 1) * limit + 1;
+		end = (pageNUM * limit);
+
+		if (searchcount % limit == 0) {
+			pagecount = searchcount / limit;
 		} else {
-			pagecount = (Gtotal / 10) + 1;
+			pagecount = (searchcount / limit) + 1;
 		}
-		start = (pageNUM - 1) * 10 + 1;
-		end = pageNUM * 10;
 
-		temp = (pageNUM - 1) % 10;
-		startpage = pageNUM - temp;
-		endpage = startpage + 9;
-
+		temp = (pageNUM - 1) % limit; // [21]~[27클릭]~[30]
+		startpage = pageNUM - temp; // 1,11,21,31
+		endpage = (startpage + limit) - 1; // 10,20,30, 40까지출력안되고 32까지만 출력함
+		// startpage=31, pagecount=32, endpage=40
 		if (endpage > pagecount) {
 			endpage = pagecount;
 		}
 
-		dto.setStart(start);
-		dto.setEnd(end);
-		List<GuestDTO> list = dao.dbSelect(dto);
-		
-		
-		mav.addObject("LG", list);
-		mav.addObject("Gtotal", Gtotal);
+		String url = "guestList";
+		List LG = dao.dbSelect(start, end, skey, sval); // dbSelect(start, end)
+
+		mav.addObject("LG", LG);
+		mav.addObject("total", count); // 전체갯수
+		mav.addObject("searchcount", searchcount); // 검색갯수
+		mav.addObject("returnpage", returnpage);
+
+		mav.addObject("pageNUM", pageNUM); // [21]~[27클릭한번호]~[30]
 		mav.addObject("startpage", startpage);
 		mav.addObject("endpage", endpage);
+		mav.addObject("limit", limit);
 		mav.addObject("pagecount", pagecount);
-		mav.addObject("pageNUM", pageNUM);
-		mav.setViewName("guestList");
+
+		mav.addObject("AA", AA); // 필드
+		mav.addObject("BB", BB); // 필드
+		mav.addObject("CC", CC); // 필드
+		mav.addObject("skey", skey);
+		mav.addObject("sval", sval); // 검색키워드
+
+		mav.setViewName(url);
 		return mav;
 	}// end
 
-	@RequestMapping("/detail.do")
-	public ModelAndView guest_detail(HttpServletRequest request) {
+	@RequestMapping("/list2.do")
+	public ModelAndView guest_select2() {
 		ModelAndView mav = new ModelAndView();
-		String data = request.getParameter("idx");
-		GuestDTO dto = dao.dbDetail(data);
-		mav.addObject("dto", dto);
-		mav.setViewName("guestDetail");
+		String url = "guestList2";
+		int count = dao.dbCount(); // 레코드갯수
+		List LG = dao.dbSelect();
+		mav.addObject("naver", LG);
+		mav.addObject("total", count);
+		mav.setViewName(url);
 		return mav;
 	}// end
 

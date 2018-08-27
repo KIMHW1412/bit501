@@ -23,12 +23,26 @@ a:hover {
 	font-weight: bold;
 }
 </style>
+<script type="text/javascript">
+	function changeClear() {
+		mysearchform.keyword.value = "";
+		mysearchform.keyword.focus();
+	}
+</script>
 
 </head>
 <body>
 	<table border="1" width=900 cellspacing="0">
 		<tr>
-			<td colspan="6" align="right">레코드갯수 : ${Gtotal}&nbsp;&nbsp;</td>
+			<td colspan=6 align="right"><c:choose>
+					<c:when test="${empty LG}">
+						<font size=7> 등록된 데이타가
+							없습니다&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font>
+					</c:when>
+					<c:otherwise>
+						<font size=6> ${searchcount}/${total}&nbsp;&nbsp;&nbsp;</font>
+					</c:otherwise>
+				</c:choose></td>
 		</tr>
 
 		<tr bgcolor="yellow" height="50" align="center">
@@ -53,7 +67,7 @@ a:hover {
 		</c:forEach>
 		<tr>
 			<td colspan=6 align="center"><c:if test="${startpage>10}">
-					<a href="list.do?pageNum=${startpage - 1}">[이전]</a>
+					<a href="list.do?pageNum=${startpage - 1}${returnpage}">[이전]</a>
 				</c:if> <c:forEach begin="${startpage}" end="${endpage}" var="i">
 
 					<c:if test="${i<=pagecount}">
@@ -68,7 +82,7 @@ a:hover {
 					</c:if>
 
 				</c:forEach> <c:if test="${endpage<pagecount}">
-					<a href="list.do?pageNum=${startpage + 10}">[다음]</a>
+					<a href="list.do?pageNum=${startpage + 10}${returnpage}">[다음]</a>
 				</c:if></td>
 		</tr>
 

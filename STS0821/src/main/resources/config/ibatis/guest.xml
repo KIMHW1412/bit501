@@ -14,10 +14,43 @@
 
 	<select id="selectAll" parameterClass="net.hb.dto.GuestDTO"
 		resultClass="net.hb.dto.GuestDTO">
-		select * from (
-		select rownum rn, g.* from guest g
-		) where
+		select * from
+		(select rownum rn ,sabun,name,title,nalja,pay
+		from (select * from guest where #skey# like '%' || #sval# || '%' ))
+		where
 		rn between #start# and #end#
+	</select>
+
+	<select id="selectAll789" resultClass="net.hb.dto.GuestDTO">
+		select * from (
+		select
+		rownum rn, sabun, name, title, nalja, pay from guest
+		) where rn between
+		#start# and #end#
+	</select>
+
+	<!-- selectAll 검색기능에 페이징추가 -->
+	<select id="selectAll2" parameterClass="net.hb.dto.GuestDTO"
+		resultClass="net.hb.dto.GuestDTO" remapResults="true">
+		select * from (
+		select rownum as rn, sabun, name, title, nalja, pay
+		from guest
+		<dynamic prepend="where">
+			<isEqual property="skey" compareValue="name">
+				name like '%' || #sval#
+				|| '%'
+			</isEqual>
+			<isEqual property="skey" compareValue="title">
+				title like '%' ||
+				#sval# || '%'
+			</isEqual>
+			<isEqual property="skey" compareValue="all" open="("
+				close=")">
+				title like '%' || #sval# || '%' or name like '%' || #sval# ||
+				'%'
+			</isEqual>
+		</dynamic>
+		) where rn between #start# and #end#
 	</select>
 
 	<select id="detail" resultClass="net.hb.dto.GuestDTO">
@@ -27,6 +60,26 @@
 
 	<select id="countAll" resultClass="int">
 		select count(*) from guest
+	</select>
+
+	<select id="searchCountAll" resultClass="int"
+		parameterClass="net.hb.dto.GuestDTO">
+		select count(*) as cnt from guest
+		<dynamic prepend="where">
+			<isEqual property="skey" compareValue="name">
+				name like '%' || #sval#
+				|| '%'
+			</isEqual>
+			<isEqual property="skey" compareValue="title">
+				title like '%' ||
+				#sval# || '%'
+			</isEqual>
+			<isEqual property="skey" compareValue="all" open="("
+				close=")">
+				title like '%' || #sval# || '%' or name like '%' || #sval# ||
+				'%'
+			</isEqual>
+		</dynamic>
 	</select>
 
 	<update id="edit">
@@ -41,15 +94,3 @@
 
 </sqlMap>   
  
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-    
