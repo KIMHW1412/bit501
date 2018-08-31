@@ -14,7 +14,7 @@
 	<div align="center">
 		<img src="./resources/images/a1.png"><br> <font size=7
 			color=blue family="Comic Sans MS"> <b>
-				Waiting...Loading.... </b>
+				Waiting...Loading... </b>
 		</font>
 	</div>
 </body>
