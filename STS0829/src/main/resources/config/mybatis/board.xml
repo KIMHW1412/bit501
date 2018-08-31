@@ -12,9 +12,57 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{img_file_name} )
 	</insert>
 
-	<select id="selectAll" resultType="net.hb.crud.BoardDTO">
-		select rownum rn, h.* from
+	<select id="selectAll" parameterType="net.hb.crud.BoardDTO"
+		resultType="net.hb.crud.BoardDTO">
+		<include refid="pagingHeader"></include>
+		select rownum, h.hobby_idx, h.name, h.title, h.content, h.gender,
+		h.hobby, h.img_file_name, (select
+		count(*) from hobby_reply where
+		hobby_idx=h.hobby_idx) as replycount
+		from
 		hobby h
+		<include refid="search"></include>
+		order by hobby_idx
+		<include refid="pagingFooter"></include>
+	</select>
+
+	<sql id="pagingHeader">
+		select * from (select rownum as rn, b.* from (
+	</sql>
+	<sql id="pagingFooter">
+		) b ) where rn between #{start} and #{end}
+	</sql>
+
+	<sql id="search">
+		<choose>
+			<when test="skey == 'all'">
+				where title like '%' || #{sval} || '%' or name like
+				'%' || #{sval} ||
+				'%'
+			</when>
+			<otherwise>
+				where ${skey} like '%'|| #{sval} ||'%'
+			</otherwise>
+		</choose>
+	</sql>
+
+	<select id="countAll" resultType="int">
+		select count(*) from hobby
+	</select>
+
+	<select id="searchCountAll" resultType="int"
+		parameterType="net.hb.crud.BoardDTO">
+		select count(*) as cnt from hobby
+		<choose>
+			<when test="skey == 'all'">
+				where title like '%' || #{sval} || '%' or name like
+				'%' || #{sval} ||
+				'%'
+			</when>
+			<otherwise>
+				where ${skey} like '%'|| #{sval} ||'%'
+			</otherwise>
+		</choose>
 	</select>
 
 	<select id="detail" parameterType="int"

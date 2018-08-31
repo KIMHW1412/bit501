@@ -6,6 +6,7 @@ public class ReplyDTO {
 	private String rwriter;
 	private String rmemo;
 	private int hobby_idx;
+	private int rrn;
 
 	public int getRhobby_idx() {
 		return rhobby_idx;
@@ -37,6 +38,14 @@ public class ReplyDTO {
 
 	public void setHobby_idx(int hobby_idx) {
 		this.hobby_idx = hobby_idx;
+	}
+
+	public int getRrn() {
+		return rrn;
+	}
+
+	public void setRrn(int rrn) {
+		this.rrn = rrn;
 	}
 
 }

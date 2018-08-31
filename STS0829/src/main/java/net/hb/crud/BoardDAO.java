@@ -17,8 +17,13 @@ public class BoardDAO {
 		System.out.println("hobby테이블 데이터 저장성공");
 	}// end
 
-	public List<BoardDTO> dbSelect() {
-		List<BoardDTO> list = temp.selectList("board.selectAll");
+//	public List<BoardDTO> dbSelect() {
+//		List<BoardDTO> list = temp.selectList("board.selectAll");
+//		return list;
+//	}// end
+
+	public List<BoardDTO> dbSelect(BoardDTO dto) {
+		List<BoardDTO> list = temp.selectList("board.selectAll", dto);
 		return list;
 	}// end
 
@@ -27,9 +32,14 @@ public class BoardDAO {
 		return dto;
 	}
 
-	public int dbCountAll(int data) {
-		int total = temp.selectOne("board.countAll", data);
+	public int dbCountAll() {
+		int total = temp.selectOne("board.countAll");
 		return total;
+	}
+
+	public int dbSearchAll(BoardDTO dto) {
+		int searhtotal = temp.selectOne("board.searchCountAll", dto);
+		return searhtotal;
 	}
 
 	public void dbDelete(int idx) {

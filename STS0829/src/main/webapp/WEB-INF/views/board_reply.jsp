@@ -23,22 +23,20 @@
 </style>
 </head>
 <body>
-	<%!int R_idx;
-	String Rwriter, Rcontent;%>
 
 	<!-- board_reply.jsp문서  단독실행금지 -->
 	<br>
-	<form method="get" action="">
+	<form method="get" action="replayInsert.do">
 		<table width="700" border='0' cellspacing="0">
 			<input type="hidden" name="hobby_idx" value="${dto.hobby_idx}">
 			<tr align="center">
 				<td><b><img src="./resources/images/x1.gif">작성자:<img
 						src="./resources/images/x1.gif"></b> <input type="text"
-					name="writer" size=20> <input type="submit"
-					value="게시판댓글저장 " style="height: 25pt;"></td>
+					name="rwriter" value="${dto.name}" size=20> <input
+					type="submit" value="댓글저장 " style="height: 25pt;"></td>
 			</tr>
 			<tr align="center">
-				<td><textarea name="content" cols="60" rows=3></textarea></td>
+				<td><textarea name="rmemo" cols="60" rows=3></textarea></td>
 			</tr>
 		</table>
 	</form>
@@ -48,23 +46,16 @@
 		<tr bgcolor="pink" height='30' align="center">
 			<td colspan=4>댓글 데이타 내용 표시</td>
 		</tr>
-		<%
-			//msg = "select * from  guestreply where sabun = " + Rdata ;
-			//msg="select g.sabun, r.num, r.writer, r.content from guest  g, guestreply r 
-			//where  g.sabun=r.sabun and r.sabun=" + Rdata;
-		%>
+		<c:forEach var="reply" items="${reply}">
 		<tr onMouseOver="style.background='#00FFFF'"
 			onMouseOut="style.background='' ">
-			<td width=100></td>
-			<td width=100></td>
-			<td width=300></td>
-			<td width=150><input type="button" onclick="" value="삭제">
+			<td width=100>${reply.rrn}</td>
+			<td width=100>${reply.rwriter}</td>
+			<td width=300>${reply.rmemo}</td>
+			<td width=150><input type="button" onclick="location.href='replyDelete.do?idx=${reply.rhobby_idx}&num=${dto.hobby_idx}'" value="삭제">
 				<input type="button" onclick="" value="수정"></td>
 		</tr>
-
-		<%
-			
-		%>
+		</c:forEach>
 	</table>
 </body>
 </html>

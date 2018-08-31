@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>[index.jsp]</title>
 <script type="text/javascript">
-	setTimeout("location.href='list.do' ", 2000);
+	setTimeout("location.href='list.do'", 2000);
 </script>
 
 </head>

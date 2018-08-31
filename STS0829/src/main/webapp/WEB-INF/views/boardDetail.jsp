@@ -30,13 +30,14 @@ a:hover {
 	<table width=900 border=1 cellspacing="0" cellpadding="5">
 		<tr>
 			<td colspan='2' align="center" bgcolor="yellow"><font
-				color='blue' style="font-size: 30pt"> [${dto.name}]님 게시판상세정보
-			</font></td>
+				color='blue' style="font-size: 30pt"> [${dto.name}]님 상세정보 </font></td>
 		</tr>
 		<tr>
-			<td rowspan="5" align="center"><img
-				src='${pageContext.request.contextPath}/resources/upload/${dto.img_file_name}'
-				width=250 heigh=300></td>
+			<td rowspan="5" align="center"><a
+				href="download.do?fileName=${dto.img_file_name}&idx=${dto.hobby_idx}"
+				style="text-decoration: none;"><img
+					src='./resources/upload/${dto.img_file_name}'
+					width=250 heigh=300></a></td>
 			<td>번호 : ${dto.hobby_idx}</td>
 		</tr>
 		<tr>
@@ -54,7 +55,7 @@ a:hover {
 		<tr>
 			<td colspan="2" align="right"><a
 				href="preEdit.do?idx=${dto.hobby_idx}">[수정]</a>&nbsp;&nbsp; <a
-				href="delete.do?idx=${dto.hobby_idx}">[삭제]</a></td>
+				href="delete.do?fileName=${dto.img_file_name}&idx=${dto.hobby_idx}">[삭제]</a></td>
 		</tr>
 	</table>
 
@@ -62,6 +63,9 @@ a:hover {
 		<a href="index.jsp">[index.jsp]</a> <a href="board.do">[board.jsp]</a>
 		<a href="list.do">[boardList.jsp]</a>
 	<hr>
-	<jsp:include page="board_reply.jsp" />
+	<jsp:include page="board_reply.jsp">
+		<jsp:param value="${dto.hobby_idx}" name="idx" />
+		<jsp:param value="${dto.name}" name="rwriter" />
+	</jsp:include>
 </body>
 </html>

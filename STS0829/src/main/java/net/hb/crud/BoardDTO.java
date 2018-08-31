@@ -7,6 +7,11 @@ public class BoardDTO {
 	private int rn;
 	private int searchtotal;
 	private int total;
+	private int replycount;
+	private int start;
+	private int end;
+	private int startpage;
+	private int endpage;
 	private String name;
 	private String title;
 	private String content;
@@ -14,6 +19,8 @@ public class BoardDTO {
 	private String hobby;
 	private String img_file_name;
 	private MultipartFile upload_f; // MultipartFile 타입 변경하세요
+	private String skey;
+	private String sval;
 
 	public int getHobby_idx() {
 		return hobby_idx;
@@ -39,8 +46,48 @@ public class BoardDTO {
 		return total;
 	}
 
+	public int getReplycount() {
+		return replycount;
+	}
+
+	public void setReplycount(int replycount) {
+		this.replycount = replycount;
+	}
+
 	public void setTotal(int total) {
 		this.total = total;
+	}
+
+	public int getStart() {
+		return start;
+	}
+
+	public void setStart(int start) {
+		this.start = start;
+	}
+
+	public int getEnd() {
+		return end;
+	}
+
+	public void setEnd(int end) {
+		this.end = end;
+	}
+
+	public int getStartpage() {
+		return startpage;
+	}
+
+	public void setStartpage(int startpage) {
+		this.startpage = startpage;
+	}
+
+	public int getEndpage() {
+		return endpage;
+	}
+
+	public void setEndpage(int endpage) {
+		this.endpage = endpage;
 	}
 
 	public void setHobby_idx(int hobby_idx) {
@@ -101,6 +148,22 @@ public class BoardDTO {
 
 	public void setUpload_f(MultipartFile upload_f) {
 		this.upload_f = upload_f;
+	}
+
+	public String getSkey() {
+		return skey;
+	}
+
+	public void setSkey(String skey) {
+		this.skey = skey;
+	}
+
+	public String getSval() {
+		return sval;
+	}
+
+	public void setSval(String sval) {
+		this.sval = sval;
 	}
 
 }// BoardDTO class END

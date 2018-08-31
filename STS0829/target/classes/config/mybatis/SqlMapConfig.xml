@@ -5,7 +5,7 @@
 
 	<typeAliases>
 		<typeAlias alias="dto" type="net.hb.crud.BoardDTO" />
-		<typeAlias alias="reply" type="net.hb.crud.ReplyDTO" />
+		<typeAlias alias="reply" type="net.hb.reply.ReplyDTO" />
 	</typeAliases>
 
 	<mappers>
